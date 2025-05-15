@@ -62,17 +62,16 @@
         clickCounter.innerText = `🔥 Clics : ${clickCount}`;
 
         if (clickCount >= 2) {
-            firstFlame.style.display = 'block';
+            flameSecond.style.display = 'block';
         }
 
         if (clickCount >= 5) {
-            flameSecond.style.display = 'block';
-        }
-        if (clickCount >= 8) {
             flameThird.style.display = 'block';
         }
-        if (clickCount >= 15) {
+        if (clickCount >= 8) {
             flameLast.style.display = 'block';
+        }
+        if (clickCount >= 15) {
             stopFogoCounter()
             stats.style.opacity = '1'
             fire.style.cursor = 'not-allowed'
