@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fogo speed</title>
+   <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+
+
+<h1>Witness Fogo speed</h1>
+
+<h2>Click 15 times on fire to light him up completely</h2>
+<div id="clickCounter">🔥 Clics : 0</div>
+<div id="fire" class="fire">
+    <div class="flames">
+        <div class="flame flame-first"></div>
+        <div class="flame flame-second"></div>
+        <div class="flame flame-third"></div>
+        <div class="flame flame-last"></div>
+    </div>
+    <div class="logs"></div>
+</div>
+<div class="stats">
+    <h2>Good job, you lit the fire in <span class="time"></span>s.</h2>
+    <h3>In the meantime Fogo made : <br/>
+        <span id="fogoCounter">0</span>
+        <span>Transactions</span>
+    </h3>
+
+    <a class="twitter-share-button"></a>
+</div>
+
+<script>
+    let clickCount = 0;
+    let fogoTPS = 55000; // Transactions per second
+    let startTime = null;
+    let fogoCounter = document.getElementById('fogoCounter');
+    let clickCounter = document.getElementById('clickCounter');
+
+
+    const firstFlame = document.querySelector('.flame-first');
+    const flameSecond = document.querySelector('.flame-second');
+    const flameThird = document.querySelector('.flame-third');
+    const flameLast = document.querySelector('.flame-last');
+    const stats = document.querySelector('.stats');
+    const fire = document.querySelector('.fire');
+    const time = document.querySelector('.time');
+    const fireElement = document.getElementById('fire');
+
+    document.getElementById('fire').addEventListener('click', () => {
+        setTimeout(() => fireElement.classList.remove('shake'), 300);
+        if (clickCount === 0) {
+            startTime = Date.now();
+            startFogoCounter();
+        }
+
+        clickCount++;
+        clickCounter.innerText = `🔥 Clics : ${clickCount}`;
+
+        if (clickCount >= 2) {
+            firstFlame.style.display = 'block';
+        }
+
+        if (clickCount >= 5) {
+            flameSecond.style.display = 'block';
+        }
+        if (clickCount >= 8) {
+            flameThird.style.display = 'block';
+        }
+        if (clickCount >= 15) {
+            flameLast.style.display = 'block';
+            stopFogoCounter()
+            stats.style.opacity = '1'
+            fire.style.cursor = 'not-allowed'
+        }
+    });
+
+    function startFogoCounter() {
+        fogoInterval = setInterval(() => {
+            if (startTime) {
+                const elapsed = (Date.now() - startTime) / 1000;
+                const transactions = Math.floor(elapsed * fogoTPS);
+                fogoCounter.innerText = transactions.toLocaleString();
+            }
+        }, 100);
+    }
+
+    function stopFogoCounter() {
+        if (fogoInterval) {
+            clearInterval(fogoInterval);
+            fogoInterval = null;
+
+            const totalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+            const transactions = Math.floor(totalTime * fogoTPS);
+            time.innerText  = totalTime;
+
+            // Générer le bouton X avec un texte dynamique
+            const shareMessage = `🔥 I lit the fire in ${totalTime} seconds while Fogo processed ${transactions.toLocaleString()} transactions ! Discover how fast Fogo can be ! @wtfanali @FogoChain`;
+            const encodedMessage = encodeURIComponent(shareMessage);
+            const twitterLink = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
+
+            const shareButton = document.querySelector('.twitter-share-button');
+            shareButton.href = twitterLink;
+            shareButton.className = 'twitter-share-button';
+            shareButton.target = '_blank';
+            shareButton.innerText = '🚀 Share your score on X';
+        }
+    }
+</script>
+</body>
+</html>
