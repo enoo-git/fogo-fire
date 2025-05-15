@@ -32,10 +32,6 @@ body .fire .flames .flame {
     border-radius: 1vw;
 }
 
-.flame-first {
-    display: none;
-}
-
 .flame-second {
     display: none;
 }
