@@ -56,7 +56,9 @@
             startFogoCounter();
         }
 
-        clickCount++;
+        if (clickCount < 15) {
+            clickCount++;
+        }
         clickCounter.innerText = `🔥 Clics : ${clickCount}`;
 
         if (clickCount >= 2) {
@@ -97,7 +99,7 @@
             time.innerText  = totalTime;
 
             // Générer le bouton X avec un texte dynamique
-            const shareMessage = `🔥 I lit the fire in ${totalTime} seconds while Fogo processed ${transactions.toLocaleString()} transactions ! Discover how fast Fogo can be ! @wtfanali @FogoChain`;
+            const shareMessage = `I lit the fire in ${totalTime} seconds while Fogo processed ${transactions.toLocaleString()} transactions 🔥\nDiscover how fast Fogo can be on 👇\nhttps://enoo-git.github.io/fogo-fire/\n\n@wtfanali @FogoChain`;
             const encodedMessage = encodeURIComponent(shareMessage);
             const twitterLink = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
 
