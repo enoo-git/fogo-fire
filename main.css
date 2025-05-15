@@ -83,6 +83,7 @@ body .fire .flames .flame {
     .stats {
        left:15px;
         right: 15px;
+        background-color:rgba(17, 18, 23, 0.7);
     }
 
     body .fire {
